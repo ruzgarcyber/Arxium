@@ -1,0 +1,222 @@
+{
+  "tools": [
+    {
+      "id": "nmap",
+      "name": "nmap",
+      "description": "Network discovery & port scanner (scripting, version detection).",
+      "cmd_template": "nmap -sC -sV -p {ports} {target}",
+      "example_args": {"target": "10.10.10.10", "ports": "1-65535"}
+    },
+    {
+      "id": "masscan",
+      "name": "masscan",
+      "description": "Very fast Internet-scale port scanner.",
+      "cmd_template": "masscan {target} -p{ports} --rate {rate}",
+      "example_args": {"target": "10.10.10.0/24", "ports": "1-65535", "rate": "1000"}
+    },
+    {
+      "id": "rustscan",
+      "name": "rustscan",
+      "description": "Fast port scanner that integrates with nmap.",
+      "cmd_template": "rustscan -a {target} -p {ports} -- -A -sV",
+      "example_args": {"target": "10.10.10.10", "ports": "1-65535"}
+    },
+    {
+      "id": "ffuf",
+      "name": "ffuf",
+      "description": "Fast web fuzzer / directory brute force.",
+      "cmd_template": "ffuf -u {target}/FUZZ -w {wordlist} -t {threads}",
+      "example_args": {"target": "http://example.com", "wordlist": "/usr/share/wordlists/dirb/common.txt", "threads": "50"}
+    },
+    {
+      "id": "gobuster",
+      "name": "gobuster",
+      "description": "Dir/file and DNS brute force tool.",
+      "cmd_template": "gobuster dir -u {target} -w {wordlist} -t {threads}",
+      "example_args": {"target": "http://example.com", "wordlist": "/usr/share/wordlists/dirb/common.txt", "threads": "50"}
+    },
+    {
+      "id": "dirb",
+      "name": "dirb",
+      "description": "Simple web content scanner (wordlist-based).",
+      "cmd_template": "dirb {target} {wordlist}",
+      "example_args": {"target": "http://example.com", "wordlist": "/usr/share/wordlists/dirb/common.txt"}
+    },
+    {
+      "id": "nikto",
+      "name": "nikto",
+      "description": "Web server scanner for known issues/misconfigurations.",
+      "cmd_template": "nikto -h {target}",
+      "example_args": {"target": "http://example.com"}
+    },
+    {
+      "id": "sqlmap",
+      "name": "sqlmap",
+      "description": "Automated SQL injection & database takeover tool.",
+      "cmd_template": "sqlmap -u \"{target}\" --batch {extra}",
+      "example_args": {"target": "http://example.com/vuln.php?id=1", "extra": ""}
+    },
+    {
+      "id": "burpsuite",
+      "name": "burpsuite",
+      "description": "Web proxy / scanner (GUI).",
+      "cmd_template": "burpsuite",
+      "example_args": {}
+    },
+    {
+      "id": "mitmproxy",
+      "name": "mitmproxy",
+      "description": "Interactive HTTPS proxy for intercepting traffic.",
+      "cmd_template": "mitmproxy -p {port}",
+      "example_args": {"port": "8080"}
+    },
+    {
+      "id": "tcpdump",
+      "name": "tcpdump",
+      "description": "Packet capture / network traffic analysis (CLI).",
+      "cmd_template": "tcpdump -i {iface} -w {outfile}",
+      "example_args": {"iface": "eth0", "outfile": "capture.pcap"}
+    },
+    {
+      "id": "wireshark",
+      "name": "wireshark",
+      "description": "GUI packet analyzer.",
+      "cmd_template": "wireshark",
+      "example_args": {}
+    },
+    {
+      "id": "ncat",
+      "name": "ncat",
+      "description": "Netcat (scripting, reverse shells, port forwarding).",
+      "cmd_template": "ncat {host} {port} {flags}",
+      "example_args": {"host": "10.10.10.10", "port": "4444", "flags": "-e /bin/bash"}
+    },
+    {
+      "id": "socat",
+      "name": "socat",
+      "description": "Flexible relay / port forwarder (advanced netcat).",
+      "cmd_template": "socat {left} {right}",
+      "example_args": {"left": "TCP-LISTEN:4444,fork", "right": "EXEC:/bin/bash,pty,stderr,setsid,sigint,sane"}
+    },
+    {
+      "id": "hydra",
+      "name": "hydra",
+      "description": "Password brute-forcer for many protocols.",
+      "cmd_template": "hydra -l {user} -P {passlist} {target} {module}",
+      "example_args": {"user": "admin", "passlist": "/usr/share/wordlists/rockyou.txt", "target": "ssh://10.10.10.10", "module": ""}
+    },
+    {
+      "id": "medusa",
+      "name": "medusa",
+      "description": "Parallel, modular login brute-forcer.",
+      "cmd_template": "medusa -h {target} -u {user} -P {passlist} -M {service}",
+      "example_args": {"target": "10.10.10.10", "user": "root", "passlist": "/usr/share/wordlists/rockyou.txt", "service": "ssh"}
+    },
+    {
+      "id": "john",
+      "name": "john",
+      "description": "John the Ripper — password cracker (hash format auto).",
+      "cmd_template": "john --wordlist={wordlist} {hashfile}",
+      "example_args": {"wordlist": "/usr/share/wordlists/rockyou.txt", "hashfile": "hashes.txt"}
+    },
+    {
+      "id": "hashcat",
+      "name": "hashcat",
+      "description": "GPU-accelerated password recovery/cracking.",
+      "cmd_template": "hashcat -m {mode} {hashfile} {wordlist} {extra}",
+      "example_args": {"mode": "0", "hashfile": "hashes.txt", "wordlist": "/usr/share/wordlists/rockyou.txt", "extra": ""}
+    },
+    {
+      "id": "metasploit",
+      "name": "msfconsole",
+      "description": "Metasploit Framework (exploitation framework / post-exploitation).",
+      "cmd_template": "msfconsole",
+      "example_args": {}
+    },
+    {
+      "id": "impacket-psexec",
+      "name": "impacket-psexec",
+      "description": "Impacket psexec.py — remote command execution via SMB.",
+      "cmd_template": "psexec.py {username}@{target} -hashes {lmhash}:{nthash}",
+      "example_args": {"username": "Administrator", "target": "10.10.10.10", "lmhash": "", "nthash": ""}
+    },
+    {
+      "id": "impacket-wmiexec",
+      "name": "impacket-wmiexec",
+      "description": "Impacket wmiexec.py — WMI-based command exec.",
+      "cmd_template": "wmiexec.py {username}@{target}",
+      "example_args": {"username": "Administrator", "target": "10.10.10.10"}
+    },
+    {
+      "id": "crackmapexec",
+      "name": "crackmapexec",
+      "description": "Post-exploitation swiss-army for Windows/AD (CME).",
+      "cmd_template": "crackmapexec smb {target} -u {user} -p {pass}",
+      "example_args": {"target": "10.10.10.0/24", "user": "Administrator", "pass": "Password123"}
+    },
+    {
+      "id": "responder",
+      "name": "responder",
+      "description": "LLMNR/NBNS/MDNS poisoner & credential harvester on LAN.",
+      "cmd_template": "responder -I {iface}",
+      "example_args": {"iface": "eth0"}
+    },
+    {
+      "id": "enum4linux",
+      "name": "enum4linux",
+      "description": "SMB/NetBIOS enumeration utility.",
+      "cmd_template": "enum4linux -a {target}",
+      "example_args": {"target": "10.10.10.10"}
+    },
+    {
+      "id": "smbmap",
+      "name": "smbmap",
+      "description": "SMB share enumeration and access checker.",
+      "cmd_template": "smbmap -H {target} -u {user} -p {pass}",
+      "example_args": {"target": "10.10.10.10", "user": "", "pass": ""}
+    },
+    {
+      "id": "bloodhound",
+      "name": "bloodhound",
+      "description": "AD relationships discovery (requires Neo4j & SharpHound).",
+      "cmd_template": "bloodhound",
+      "example_args": {}
+    },
+    {
+      "id": "pspy",
+      "name": "pspy",
+      "description": "Linux process snooper — detects stealthy jobs/cron activity.",
+      "cmd_template": "pspy64",
+      "example_args": {}
+    },
+    {
+      "id": "linpeas",
+      "name": "linpeas",
+      "description": "Linux privilege escalation enumeration script.",
+      "cmd_template": "sh ./linpeas.sh {extra}",
+      "example_args": {"extra": ""}
+    },
+    {
+      "id": "winpeas",
+      "name": "winpeas",
+      "description": "Windows privilege escalation enumeration script.",
+      "cmd_template": "powershell -ExecutionPolicy Bypass -File .\\winPEAS.ps1 {extra}",
+      "example_args": {"extra": ""}
+    },
+    {
+      "id": "ssh",
+      "name": "ssh",
+      "description": "SSH client (remote shells / tunneling).",
+      "cmd_template": "ssh -p {port} {user}@{host}",
+      "example_args": {"port": "22", "user": "root", "host": "10.10.10.10"}
+    },
+    {
+      "id": "scp",
+      "name": "scp",
+      "description": "Secure file copy over SSH.",
+      "cmd_template": "scp {source} {user}@{host}:{dest}",
+      "example_args": {"source": "shell.bin", "user": "root", "host": "10.10.10.10", "dest": "/tmp"}
+    }
+  ],
+  "favorites": ["nmap","ffuf","gobuster","sqlmap","metasploit","hydra","hashcat","responder"]
+}
